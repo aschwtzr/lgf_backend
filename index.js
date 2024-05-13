@@ -1,8 +1,10 @@
 import express from 'express'
 import { Worker } from 'worker_threads'
+import cors from 'cors'
 
 const app = express()
 app.use(express.json());
+app.use(cors({ origin: '*' }));
 app.use(express.urlencoded({ extended: true }));
 const port = 3000
 
@@ -25,6 +27,10 @@ app.post('/reading', async function (req, res) {
     console.log('Received reading', data)
     res.send(data)
  })
+ worker.on("error", error => {
+   console.log('error', error)
+   res.send({"error": error})
+})
 })
 
 app.listen(port, () => {
