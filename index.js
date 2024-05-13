@@ -4,6 +4,9 @@ import cors from 'cors'
 
 const app = express()
 app.use(express.json());
+
+const allowedOrigins = ['http://localhost:5173',
+                      'https://lgf-frontend.onrender.com'];
 app.use(cors({ origin: '*' }));
 app.use(express.urlencoded({ extended: true }));
 const port = 3000
